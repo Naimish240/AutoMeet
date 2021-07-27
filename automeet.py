@@ -15,12 +15,13 @@ from time import sleep
 import captcha
 import os
 import glob
+from tqdm import tqdm
 
 
-USER_NAME = ""
-EMAIL_ID = ""
-BITLY_URL = ""
-SESSION_DURATION = 2
+USER_NAME = ""                       # Edit with your Name
+EMAIL_ID = ""         # Edit with your email
+BITLY_URL = ""        # Edit with your URL
+SESSION_DURATION = 2                        # Duration of session in hrs
 
 
 def openBrowser():
@@ -30,6 +31,7 @@ def openBrowser():
     driver.get(BITLY_URL)
     # Wait 5 seconds, for the website to load
     sleep(5)
+    print("Browser Opened")
     return driver
 
 
@@ -50,6 +52,7 @@ def textButtons(driver):
     emailButton.send_keys(EMAIL_ID)
     sleep(1)
 
+    print("Logged In")
 
 def solveCaptcha(driver):
     try:
@@ -91,28 +94,39 @@ def joinMeet(driver):
     # Click it
     submitButton.click()
 
+    print("Meet joined")
+
 
 def playVideo(driver):
     loaded = False
     while loaded is False:
+        # Check if Play Button is Visible
         try:
             playButton = driver.find_element_by_xpath(
                 '//*[@id="user_start_broadcast_overlay"]/button'
             )
             playButton.click()
             loaded = True
+
         except:
-            print("Play button not visible yet")
-            sleep(60)
+            print("Play button not visible yet, trying again in 60 seconds")
+            with tqdm(total=60) as t:
+                for i in range(60):
+                    sleep(1)
+                    t.update(1)
+
             continue
 
     print("Play Button Clicked!")
 
 
-def quit(driver):
-    # Press 'play' button when visible
+def run(driver):
     # Let the session run
-    sleep(SESSION_DURATION*60*60)
+    with tqdm(total=SESSION_DURATION*60*60) as t:
+        for i in range(SESSION_DURATION*60*60):
+            sleep(1)
+            t.update(1)
+
     # End the session
     driver.close()
     driver.quit()
@@ -124,4 +138,4 @@ if __name__ == '__main__':
     solveCaptcha(driver)
     joinMeet(driver)
     playVideo(driver)
-    quit(driver)
+    run(driver)
