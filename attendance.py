@@ -14,6 +14,9 @@ from selenium import webdriver
 from time import sleep
 from datetime import datetime
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--mute-audio")
+
 
 WEBSITE_URL = "http://18.218.221.9/users/sign_in"
 EMAIL_ID = ""
@@ -22,7 +25,7 @@ PASSWORD = ""
 
 def openBrowser():
     # Initialize the webdriver object
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(options=chrome_options)
     # Navigates to the website with chrome
     driver.get(WEBSITE_URL)
     # Wait 5 seconds, for the website to load
@@ -69,7 +72,7 @@ def attendanceWindow(driver):
     todayDropDown = today.find_elements_by_xpath('./*')
     sleep(1)
 
-    print("Selecting Date: ", todayDropDown.text)
+    print("Selecting Date: ", todayDropDown[0].text)
 
     # Opening today's dropdown
     todayDownArrow = todayDropDown[0].find_elements_by_xpath('./*')[1]
@@ -83,13 +86,14 @@ def attendanceWindow(driver):
     # Morning Session
     if hour in [10, 11, 12]:
         morning = sessions.find_elements_by_xpath('./*')[0]
+        morning.click()
 
     # Afternoon Session
     else:
         evening = sessions.find_elements_by_xpath('./*')[1]
+        evening.click()
 
-    # Delete variables
-    del morning, evening
+    sleep(5)
 
     # Start Quiz
     testButton = driver.find_element_by_xpath(

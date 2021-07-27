@@ -18,6 +18,12 @@ import glob
 from tqdm import tqdm
 
 
+# Mute the browser on open
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--mute-audio")
+
+
+# User settings
 USER_NAME = ""                       # Edit with your Name
 EMAIL_ID = ""         # Edit with your email
 BITLY_URL = ""        # Edit with your URL
@@ -26,7 +32,7 @@ SESSION_DURATION = 2                        # Duration of session in hrs
 
 def openBrowser():
     # Initialize the webdriver object
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(chrome_options=chrome_options)
     # Navigates to the website with chrome
     driver.get(BITLY_URL)
     # Wait 5 seconds, for the website to load
@@ -53,6 +59,7 @@ def textButtons(driver):
     sleep(1)
 
     print("Logged In")
+
 
 def solveCaptcha(driver):
     try:
