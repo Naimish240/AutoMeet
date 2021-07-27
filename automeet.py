@@ -12,7 +12,7 @@
 
 from selenium import webdriver
 from time import sleep
-import captcha
+# import captcha
 import os
 import glob
 from tqdm import tqdm
@@ -78,13 +78,13 @@ def solveCaptcha(driver):
         img = img[0]
 
         # Get CAPTCHA text
-        text = captcha.getText(img)
+        # text = captcha.getText(img)
 
         # Submit CAPTCHA
         captchaBox = driver.find_element_by_xpath(
             ''
         )
-        captchaBox.send_keys(text)
+        # captchaBox.send_keys(text)
 
         # Delete image
         os.system(f"rm {img}")

@@ -13,6 +13,7 @@
 from selenium import webdriver
 from time import sleep
 from datetime import datetime
+from tqdm import tqdm
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--mute-audio")
@@ -30,6 +31,7 @@ def openBrowser():
     driver.get(WEBSITE_URL)
     # Wait 5 seconds, for the website to load
     sleep(5)
+    print("Opened Browser")
     return driver
 
 
@@ -48,6 +50,7 @@ def login(driver):
         '//*[@id="new_user"]/input[3]'
     )
     submitButton.click()
+    print("Logged In")
 
     sleep(5)
 
@@ -100,13 +103,17 @@ def attendanceWindow(driver):
             '//*[@id="ld-table-list-item-66"]/a[1]/button'
     )
     testButton.click()
+    print("Opened Quiz")
 
     goToQuiz(driver)
 
 
 def goToQuiz(driver):
     # Wait for quiz to load
-    sleep(35)
+    with tqdm(total=35) as t:
+        for i in range(35):
+            sleep(1)
+            t.update(1)
 
     # Mark presence
     yesButton = driver.find_element_by_xpath('//*[@id="options_quiz"]/div/label')
@@ -121,6 +128,8 @@ def goToQuiz(driver):
     # Confirm Submission
     endTestButton = driver.find_element_by_xpath('//*[@id="end_test_button"]')
     endTestButton.click()
+
+    print("Submitted Attendance")
     sleep(5)
 
 
@@ -128,6 +137,7 @@ def quit(driver):
     sleep(10)
     driver.close()
     driver.quit()
+    print("Exit Program")
 
 
 if __name__ == '__main__':
