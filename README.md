@@ -2,13 +2,12 @@
 
 ### DISCLAIMER : I neither use nor endorse the use of this repository. It was made for *purely academic purposes only*. Do not, I repeat do NOT use this for real.
 
+
 **Programmer** (*/ˈprəʊɡramə/*), *noun*;
+
 A person who spends 3 hours automating a 30 second task because they didn't want to repeat themselves.
 
-![Image of Tweet](https://i.redd.it/2ialma4xoiv41.jpg)
-
 So what's the 30 second task I set out to automate with this project? Joining a webinar and marking my attendance, of course.
-
 
 # Requirements
 1. Python (3.x)
