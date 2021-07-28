@@ -32,7 +32,7 @@ SESSION_DURATION = 2                        # Duration of session in hrs
 
 def openBrowser():
     # Initialize the webdriver object
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome('Driver/chromedriver', options=chrome_options)
     # Navigates to the website with chrome
     driver.get(BITLY_URL)
     # Wait 5 seconds, for the website to load
