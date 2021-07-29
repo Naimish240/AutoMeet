@@ -19,7 +19,7 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--mute-audio")
 
 
-WEBSITE_URL = "http://18.218.221.9/users/sign_in"
+BASE_URL = "http://3.12.107.113/"
 EMAIL_ID = ""
 PASSWORD = ""
 
@@ -28,7 +28,7 @@ def openBrowser():
     # Initialize the webdriver object
     driver = webdriver.Chrome('Driver/chromedriver', options=chrome_options)
     # Navigates to the website with chrome
-    driver.get(WEBSITE_URL)
+    driver.get(BASE_URL + 'users/sign_in')
     # Wait 5 seconds, for the website to load
     sleep(5)
     print("Opened Browser")
@@ -58,7 +58,7 @@ def login(driver):
 def attendanceWindow(driver):
     # Load Attendance Page
     driver.get(
-        'http://18.218.221.9/course/60e1fa251d41c80b44389b30'
+        BASE_URL + 'course/60e1fa251d41c80b44389b30'
     )
     sleep(5)
 
